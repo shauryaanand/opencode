@@ -1,0 +1,10 @@
+[tasks.bun-update-all-dependencies]
+run = "bunx taze -r"
+[tasks.bun-install]
+run = "bun install"
+[tasks.bun-dev]
+run = "bun run packages/opencode/src/index.ts"
+[tasks.bun-typecheck]
+run = "bun turbo typecheck"
+[tasks.ruler-apply]
+run = "bunx @intellectronica/ruler@latest apply --local-only --backup=false"

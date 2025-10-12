@@ -10,3 +10,18 @@ playground
 tmp
 dist
 .turbo
+
+
+# START Ruler Generated Files
+/.clinerules
+/.vscode/mcp.json
+/AGENTS.md
+/opencode.json
+# END Ruler Generated Files
+
+.github/prompts
+AGENTS.md
+.opencode/command
+.ruler
+opencode.json
+openspec
