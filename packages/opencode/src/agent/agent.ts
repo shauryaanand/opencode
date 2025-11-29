@@ -175,30 +175,37 @@ export namespace Agent {
   }
 }
 
-function mergeAgentPermissions(basePermission: any, overridePermission: any): Agent.Info["permission"] {
-  const merged = mergeDeep(basePermission ?? {}, overridePermission ?? {}) as any
-  let mergedBash
+type PermissionInput = {
+  edit?: Config.Permission
+  bash?: Config.Permission | Record<string, Config.Permission>
+  webfetch?: Config.Permission
+}
+
+function mergeAgentPermissions(basePermission: PermissionInput, overridePermission: PermissionInput): Agent.Info["permission"] {
+  const merged = mergeDeep(basePermission ?? {}, overridePermission ?? {}) as PermissionInput
+  let mergedBash: Record<string, Config.Permission>
   if (merged.bash) {
     if (typeof merged.bash === "string") {
       mergedBash = {
         "*": merged.bash,
       }
-    }
-    // if granular permissions are provided, default to "ask"
-    if (typeof merged.bash === "object") {
+    } else {
+      // if granular permissions are provided, default to "ask"
       mergedBash = mergeDeep(
         {
-          "*": "ask",
+          "*": "ask" as Config.Permission,
         },
         merged.bash,
       )
     }
+  } else {
+    mergedBash = { "*": "allow" }
   }
 
   const result: Agent.Info["permission"] = {
     edit: merged.edit ?? "allow",
     webfetch: merged.webfetch ?? "allow",
-    bash: mergedBash ?? { "*": "allow" },
+    bash: mergedBash,
   }
 
   return result

@@ -93,14 +93,6 @@ export namespace Config {
     if (result.keybinds?.messages_revert && !result.keybinds.messages_undo) {
       result.keybinds.messages_undo = result.keybinds.messages_revert
     }
-
-    // Handle migration from autoshare to share field
-    if (result.autoshare === true && !result.share) {
-      result.share = "auto"
-    }
-    if (result.keybinds?.messages_revert && !result.keybinds.messages_undo) {
-      result.keybinds.messages_undo = result.keybinds.messages_revert
-    }
     if (result.keybinds?.switch_mode && !result.keybinds.switch_agent) {
       result.keybinds.switch_agent = result.keybinds.switch_mode
     }
